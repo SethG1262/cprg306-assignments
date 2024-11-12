@@ -14,6 +14,7 @@ const MealIdeas = ({ ingredient }) => {
     return cleanedName.trim().toLowerCase();
   };
 
+  // Use `useCallback` to memoize the fetch function
   const fetchMealIdeas = useCallback(async (ingredient) => {
     const cleanedIngredient = cleanIngredient(ingredient);
     try {
@@ -24,13 +25,13 @@ const MealIdeas = ({ ingredient }) => {
         setError('');
       } else {
         setMeals([]);
-        setError(`No meal ideas found for &quot;${cleanedIngredient}&quot;.`);
+        setError(`No meal ideas found for "${cleanedIngredient}".`);
       }
     } catch (error) {
       console.error("Error fetching meal ideas:", error);
       setError("An error occurred while fetching meal ideas.");
     }
-  }, [cleanIngredient]);
+  }, []);
 
   const fetchMealDetails = async (idMeal) => {
     if (mealDetails[idMeal]) {
@@ -51,13 +52,16 @@ const MealIdeas = ({ ingredient }) => {
     }
   };
 
+
   useEffect(() => {
-    if (ingredient) fetchMealIdeas(ingredient);
+    if (ingredient) {
+        fetchMealIdeas(ingredient);
+    }
   }, [ingredient, fetchMealIdeas]);
 
   return (
     <div className="p-5 bg-gray-800 rounded-lg text-white">
-      <h2 className="mb-2 text-lg font-semibold">Meal ideas using &quot;{ingredient}&quot;:</h2>
+      <h2 className="mb-2 text-lg font-semibold">Meal ideas using "{ingredient}":</h2>
       {error ? (
         <p className="text-red-500">{error}</p>
       ) : (
