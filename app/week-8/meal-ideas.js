@@ -1,4 +1,3 @@
-// meal-ideas.js
 "use client";
 
 import React, { useState, useEffect, useCallback } from 'react';
@@ -31,7 +30,7 @@ const MealIdeas = ({ ingredient }) => {
       console.error("Error fetching meal ideas:", error);
       setError("An error occurred while fetching meal ideas.");
     }
-  }, []);
+  }, [cleanIngredient]);
 
   const fetchMealDetails = async (idMeal) => {
     if (mealDetails[idMeal]) {
@@ -54,11 +53,11 @@ const MealIdeas = ({ ingredient }) => {
 
   useEffect(() => {
     if (ingredient) fetchMealIdeas(ingredient);
-  }, [ingredient]);
+  }, [ingredient, fetchMealIdeas]);
 
   return (
     <div className="p-5 bg-gray-800 rounded-lg text-white">
-      <h2 className="mb-2 text-lg font-semibold">Meal ideas using "{ingredient}":</h2>
+      <h2 className="mb-2 text-lg font-semibold">Meal ideas using &quot;{ingredient}&quot;:</h2>
       {error ? (
         <p className="text-red-500">{error}</p>
       ) : (
@@ -98,4 +97,3 @@ const MealIdeas = ({ ingredient }) => {
 };
 
 export default MealIdeas;
-    
