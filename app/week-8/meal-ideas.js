@@ -61,7 +61,7 @@ const MealIdeas = ({ ingredient }) => {
 
   return (
     <div className="p-5 bg-gray-800 rounded-lg text-white">
-      <h2 className="mb-2 text-lg font-semibold">Meal ideas using "{ingredient}":</h2>
+      <h2 className="mb-2 text-lg font-semibold">Meal ideas using {ingredient}:</h2>
       {error ? (
         <p className="text-red-500">{error}</p>
       ) : (
