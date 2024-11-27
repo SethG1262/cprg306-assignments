@@ -1,37 +1,22 @@
+// page.js
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { useUserAuth } from "../_utils/auth-context"; // Adjust path if needed
-import ItemList from "../shopping-list/item-list"; // Adjust path as necessary
-import NewItem from "../shopping-list/new-item"; // Adjust path as necessary
-import MealIdeas from "../shopping-list/meal-ideas"; // Adjust path as necessary
-import itemsData from "../shopping-list/items.json"; // Adjust path as necessary
+import { useState } from 'react';
+import ItemList from './item-list';
+import NewItem from './new-item';
+import MealIdeas from './meal-ideas';
+import itemsData from './items.json';
 
-export default function ShoppingListPage() {
-  const { user } = useUserAuth();
-  const router = useRouter();
-  const [items, setItems] = useState(itemsData || []);
-  const [selectedItemName, setSelectedItemName] = useState("");
-
-  useEffect(() => {
-    // Redirect to landing page if user is not logged in
-    if (!user) {
-      router.push("/"); // Redirect to landing page or other route if not authenticated
-    }
-  }, [user, router]);
-
-  // If user is not logged in, display a loading message
-  if (!user) {
-    return <p>Redirecting to login...</p>;
-  }
+export default function Page() {
+  const [items, setItems] = useState(itemsData);
+  const [selectedItemName, setSelectedItemName] = useState('');
 
   const handleAddItem = (newItem) => {
     setItems((prevItems) => [...prevItems, newItem]);
   };
 
   const handleItemSelect = (item) => {
-    const cleanName = item.name.split(",")[0].trim().replace(/[\u{1F600}-\u{1F64F}]/gu, "");
+    const cleanName = item.name.split(',')[0].trim().replace(/[\u{1F600}-\u{1F64F}]/gu, '');
     setSelectedItemName(cleanName);
   };
 
